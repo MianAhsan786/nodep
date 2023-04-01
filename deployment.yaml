@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: second-app-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: second-app
+      tier: backend
+  template:
+    metadata: 
+      labels:
+        app: second-app
+        tier: backend
+    spec: 
+      containers:
+        - name: second-node
+          image: ahsan1710/node-app
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            periodSeconds: 3
+            initialDelaySeconds: 4
+        # - name: ...
+        #   image: ...
